@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
@@ -6,13 +7,16 @@ const userSchema = new Schema(
     name: {
       type: String
     },
-    userId: {
+    username: {
       type: String,
-      required: 'Account is not valid',
-      unique: true
+      required: 'Username is required',
+      unique: true,
+      minlength: [3, 'Username must be at least 3 chars']
     },
-    token: {
-      type: String
+    password: {
+      type: String,
+      required: 'Password is required',
+      minlength: [6,'Password must be at least 6 chars']
     },
     globalScore: {
       type: Number
@@ -37,11 +41,34 @@ const userSchema = new Schema(
         delete ret.__v;
         ret.id = ret._id;
         delete ret._id;
+        delete ret.password;
         return ret
       },
     },
   }
 );
+
+userSchema.pre('save', function (next) {
+  const user = this;
+
+  if (user.isModified('passwords')) {
+    bcrypt
+      .genSalt(10)
+      .then((salt) => {
+        return bcrypt.hash(user.password, salt).then((hash) => {
+          user.password = hash;
+          next();
+        })
+      })
+      .catch((error) => next(error));
+  } else {
+    next();
+  }
+});
+
+userSchema.methods.checkPassword = function (password) {
+  return bcrypt.compare(password, this.password);
+}
 
 userSchema.virtual('likes', {
   ref: 'Like',

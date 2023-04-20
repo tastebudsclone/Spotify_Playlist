@@ -30,16 +30,16 @@ const playlistSchema = new Schema(
         ret.id = ret._id;
         delete ret._id;
         return ret;
-      },
-    },
+      }
+    }
   });
 
   playlistSchema.virtual('likes', {
     ref: 'Like',
     localField: 'playlistId',
     foreignField: 'playlist',
-    justOne: false
-  });
+    justOne: fal
+  })
 
   const Playlist = mongoose.model('Playlist', playlistSchema);
   module.exports = Playlist;

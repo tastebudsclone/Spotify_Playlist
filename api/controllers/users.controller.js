@@ -12,3 +12,10 @@ module.exports.profile = (req, res, next) => {
     })
     .catch(next)
 };
+
+module.exports.create = (req, res, next) => {
+  console.log(req.body);
+  User.create(req.body)
+    .then((user) => res.status(201).json(user))
+    .catch(next)
+}
