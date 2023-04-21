@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const createError = require('http-errors');
+const jwt = require('jsonwebtoken');
 
 module.exports.profile = (req, res, next) => {
   User.findById(req.params.id)
@@ -28,5 +29,29 @@ module.exports.settings = (req, res, next) => {
   req.user
     .save()
     .then((user) => res.json(user))
+    .catch(next);
+}
+
+module.exports.login = (req, res, next) => {
+  User.findOne({ username: req.body.username })
+    .then((user) => {
+      console.log(user)
+      if (!user) {
+        return next(createError(401, {errors: { password: 'Invalid credentials'}}));
+      }
+
+      user.checkPassword(req.body.password).then((match) => {
+      if (!match) {
+        return next(createError(401, {errors: { password: 'Invalid credentials'}}))
+      }
+
+      const token = jwt.sign(
+        { sub: user.id, exp: Date.now() / 1000 + 3_600 },
+        process.env.JWT_SECRET
+      );
+
+        res.json({ token, ...user.toJSON() })
+      });  
+    })
     .catch(next);
 }
