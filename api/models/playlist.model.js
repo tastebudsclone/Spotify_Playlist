@@ -6,15 +6,12 @@ const playlistSchema = new Schema(
     name: {
       type: String
     },
-    playlistId: {
-      type: String,
-      unique: true
-    },
     tracks: {
       type: [String]
     },
     owner: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: 'Must log in before creating playlist.'
     },
     image: {
@@ -36,9 +33,9 @@ const playlistSchema = new Schema(
 
   playlistSchema.virtual('likes', {
     ref: 'Like',
-    localField: 'playlistId',
+    localField: '_id',
     foreignField: 'playlist',
-    justOne: fal
+    justOne: false
   })
 
   const Playlist = mongoose.model('Playlist', playlistSchema);

@@ -4,7 +4,8 @@ const express = require('express');
 const logger = require('morgan');
 const helmet = require('helmet');
 const createError = require('http-errors');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const secure = require('./middlewares/secure.mid');
 
 
 require('./config/db.config');
@@ -14,6 +15,7 @@ app.use(logger('dev'));
 app.use(helmet());
 
 app.use(express.json())
+app.use(secure.cleanBody);
 app.use('/api/v1', require('./config/routes.config'));
 
 // Error Handling //
@@ -25,12 +27,12 @@ app.use((error, req, res, next) => {
   } else if (error instanceof mongoose.Error.CastError && error.path === '_id') {
     const resourceName = error.model().constructor.modelName;
     error = createError(404, `${resourceName} not found`)
+  } else if (error.message.includes("E11000")) {
+    Object.keys(error.keyValue).forEach((key) => error.keyValue[key] = 'Username is already in use');
+    error = createError(409, { errors: error.keyValue })
   } else if (!error.status) {
     error = createError(500, error)
-  } else if (error.message.includes("E11000")) {
-    Object.keys(error.keyValue).forEach((key) => error.keyValue[key] = 'Already exist');
-    error = createError(409, { errors: error.keyValue })
-  }
+  } 
   console.error(error);
 
   const data = {

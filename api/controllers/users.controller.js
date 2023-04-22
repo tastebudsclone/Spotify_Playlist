@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports.profile = (req, res, next) => {
   User.findById(req.params.id)
+    .populate('playlists')
     .then((user) => {
       if (!user) {
         return next(createError(404, 'User not found'))
@@ -24,7 +25,7 @@ module.exports.settings = (req, res, next) => {
     return next(createError(403, 'Forbidden'))
   }
 
-  Object.assigs(req.user, req.body);
+  Object.assign(req.user, req.body);
 
   req.user
     .save()
@@ -33,6 +34,9 @@ module.exports.settings = (req, res, next) => {
 }
 
 module.exports.login = (req, res, next) => {
+  if (!req.body.password) {
+    return next(createError(401, {errors: { password: 'Password is required'}}))
+  }
   User.findOne({ username: req.body.username })
     .then((user) => {
       console.log(user)
@@ -49,7 +53,7 @@ module.exports.login = (req, res, next) => {
         { sub: user.id, exp: Date.now() / 1000 + 3_600 },
         process.env.JWT_SECRET
       );
-
+        console.log(req.user)
         res.json({ token, ...user.toJSON() })
       });  
     })

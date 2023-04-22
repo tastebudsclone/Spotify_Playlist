@@ -20,13 +20,12 @@ const userSchema = new Schema(
     },
     globalScore: {
       type: Number
+    }, 
+    artists: {
+      type: [String]
     },
     score: {
       type: [Number]
-    },
-    playlists: {
-      type: [mongoose.Schema.Types.ObjectId], 
-      ref: 'Playlist'
     },
     image: {
       type: String
@@ -70,18 +69,18 @@ userSchema.methods.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);
 }
 
+userSchema.virtual('playlists', {
+  ref: 'Playlist',
+  localField: '_id',
+  foreignField: 'owner',
+  justOne: false
+})
+
 userSchema.virtual('likes', {
   ref: 'Like',
-  localField: 'userId',
+  localField: '_id',
   foreignField: 'user',
   justOne: false,
-});
-
-userSchema.virtual('scoreboard', {
-  ref: 'Scoreboard',
-  localField: 'score',
-  foreignField: 'user',
-  justOne: false
 });
 
 const User = mongoose.model("User", userSchema);

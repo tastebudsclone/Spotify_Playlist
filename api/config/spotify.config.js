@@ -35,7 +35,7 @@ async function example() {
   console.log("tracks", res.data);
 }
 
-async function project(genres, artistName) {
+async function getRecommendations(data) {
   // get spotify recommendations based on genres and artist name
   let res;
   res = await axios.post(
@@ -59,25 +59,54 @@ async function project(genres, artistName) {
       Authorization: `Bearer ${token}`,
     },
     params: {
-      q: artistName,
+      q: data.artistName,
       type: "artist",
     },
   });
 
   const artistId = res.data.artists.items[0].id;
   
+  const paramsKey = {
+    seed_genres: data.genre,
+    seed_artists: artistId,
+    limit: data.limit || 5,
+  };
+
   res = await axios.get("https://api.spotify.com/v1/recommendations", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    params: {
-      seed_genres: genres,
-      seed_artists: artistId,
-      limit: 10,
-    },
+    params: 
+      paramsKey
+    ,
   });
 
-  console.log("tracks", res.data);
+  console.log("tracks", res.data.tracks);
+  return res.data.tracks
 }
 
-project("pop", "drake");
+async function getSeveralTracks(data) {
+  let res;
+  res = await axios.post(
+    "https://accounts.spotify.com/api/token",
+    { grant_type: "client_credentials" },
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          new Buffer.from(client_id + ":" + client_secret).toString("base64"),
+      },
+    }
+  );
+
+  const token = res.data.access_token;
+
+  res = await axios.get("https://api.spotify.com/v1/tracks?market=ES", {
+    ids : data.join(',')
+  })
+  
+  console.log('data', res);
+}
+
+module.exports = {getRecommendations, example, getSeveralTracks};
