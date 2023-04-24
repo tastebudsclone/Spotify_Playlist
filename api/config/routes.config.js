@@ -16,5 +16,9 @@ router.get('/playlists', playlists.list);
 router.post('/playlists/create/onArtists', secure.auth, playlists.createOnArtists);
 router.delete('/playlists/:id', secure.auth, playlists.delete);
 
+/*
+router.get('/play', secure.auth);
+router.post('/play', secure.auth); 
+*/
 
 module.exports = router;
