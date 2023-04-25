@@ -1,7 +1,6 @@
 const Playlist = require('../models/playlist.model');
 const Like = require('../models/like.model');
 const createError = require('http-errors');
-const Like = require('../models/like.model');
 const {getRecommendations, example} = require('../config/spotify.config');
 
 module.exports.list = (req, res, next) => {
@@ -42,7 +41,7 @@ module.exports.delete = (req, res, next) => {
 
 module.exports.toggle = (req, res, next) => {
   const params = {
-    playli: req.params.id,
+    playlist: req.params.id,
     user: req.user.id,
   };
 
