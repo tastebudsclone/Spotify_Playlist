@@ -1,6 +1,7 @@
 const Playlist = require('../models/playlist.model');
 const Like = require('../models/like.model');
 const createError = require('http-errors');
+const Like = require('../models/like.model');
 const {getRecommendations, example} = require('../config/spotify.config');
 
 module.exports.list = (req, res, next) => {
@@ -9,7 +10,8 @@ module.exports.list = (req, res, next) => {
     .catch(next);
 }
 
-module.exports.createOnArtists = async (req, res, next) => {
+//TO DO ARTIST ATTRIBUTE AND POPULATE IN USER
+module.exports.create = async (req, res, next) => {
   try {
     const tracks = await getRecommendations(req.body);
     const tracksID = tracks.map(track => track.id);

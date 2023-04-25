@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//TO DO ARTIST ATTRIBUTE AND POPULATE IN USER
+
 const playlistSchema = new Schema(
   {
     name: {

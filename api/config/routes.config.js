@@ -13,9 +13,13 @@ router.get('/users/:id', users.profile);
 router.patch('/users/:id', secure.auth, users.settings);
 
 router.get('/playlists', playlists.list);
-router.post('/playlists', secure.auth, playlists.createOnArtists);
+router.post('/playlists', secure.auth, playlists.create);
 router.delete('/playlists/:id', secure.auth, playlists.delete);
 router.post('/playlists/:id/like', secure.auth, playlists.toggle);
 
+/*
+router.get('/play', secure.auth);
+router.post('/play', secure.auth); 
+*/
 
 module.exports = router;
