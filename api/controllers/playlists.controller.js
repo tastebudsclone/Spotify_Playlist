@@ -1,5 +1,6 @@
 const Playlist = require('../models/playlist.model');
 const createError = require('http-errors');
+const Like = require('../models/like.model');
 const {getRecommendations, example} = require('../config/spotify.config');
 
 module.exports.list = (req, res, next) => {
@@ -8,22 +9,21 @@ module.exports.list = (req, res, next) => {
     .catch(next);
 }
 
-module.exports.createOnArtists = async (req, res, next) => {
-  const tracks = await getRecommendations(req.body);
-  const tracksID = tracks.map(track => track.id);
-  console.log(tracks.map(x => x.artists[0].id))
-  const artistsId = tracks.map(x => x.artists[0].id)
-  Object.assign(req.user.artists, artistsId); //TODO
+module.exports.create = async (req, res, next) => {
+  try {
+    const tracks = await getRecommendations(req.body);
+    const tracksID = tracks.map(track => track.id);
+    const artistsIds = tracks.map(x => x.artists[0].id)
+    
+    const playlist = await Playlist.create({name: req.body.name, tracks: tracksID, owner: req.user.id});
 
-  req.user
-    .save()
-    .then(next)
-    .catch(next);
-  Playlist.create({name: req.body.name , tracks: tracksID, owner: req.user.id})
-    .then((playlist) => {
-      res.json(playlist)
-    })
-    .catch(next)
+    req.user.artists = [...req.user.artists, ...artistsIds]
+    await req.user.save();
+
+    res.status(201).json(playlist);
+  } catch (error) {
+    next(error)
+  }
 }
 
 module.exports.delete = (req, res, next) => {
@@ -37,3 +37,22 @@ module.exports.delete = (req, res, next) => {
       })
     .catch(next)
 }
+
+module.exports.toggle = (req, res, next) => {
+  const params = {
+    playli: req.params.id,
+    user: req.user.id,
+  };
+
+  Like.findOne(params)
+    .then((like) => {
+      if (like) {
+        return Like.deleteOne({ _id: like.id })
+          .then(() => res.status(204).send())
+      } else {
+        return Like.create(params)
+          .then((like) => res.json(like))
+      }
+    })
+    .catch(next);
+};
