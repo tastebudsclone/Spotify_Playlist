@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 function Playlist() {
   const params = useParams();
+  console.log(params)
   return (
     <div>Playlist {params.id}</div>
   )

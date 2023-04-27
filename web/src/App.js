@@ -1,18 +1,26 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Discover from './pages/Discover';
-import Profile from './pages/Profile';
-import Playlist from './pages/Playlist';
+import HomePage from './pages/HomePage';
+import DiscoverPage from './pages/DiscoverPage';
+import ProfilePage from './pages/ProfilePage';
+import PlaylistPage from './pages/PlaylistPage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import AuthStore from './contexts/AuthStore';
+import PrivateRoute from './guards/PrivateRoute';
 
 function App() {
   return (
-    <Routes>
-      <Route path='/home?' element={<Home />} />
-      <Route path='/profile' element={<Profile />} />
-      <Route path='/discover' element={<Discover />} />
-      <Route path='/playlist/:id' element={<Playlist />} />
-      <Route path='*' element={<Navigate to='/' />} /> {/*OR COMPONENT PAGE NOT FOUND*/}
-    </Routes>
+    <AuthStore>
+      <Routes>
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/home?' element={<PrivateRoute><HomePage /></PrivateRoute>} />
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/discover' element={<DiscoverPage />} />
+        <Route path='/playlist/:id' element={<PlaylistPage />} />
+        <Route path='*' element={<Navigate to='/' />} /> {/*OR COMPONENT PAGE NOT FOUND*/}
+      </Routes>
+    </AuthStore>
   );
 }
 
