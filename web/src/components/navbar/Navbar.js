@@ -1,12 +1,12 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import logo from '../../assets/img/logo.png'
+import logo from '../../assets/img/spotifyicon.png'
 
 function Navbar() {
   return (
     <div className='h-screen w-full p-4 bg-gray-800'>
-      <div className='flex flex-col text-gray-700 bg-gray-900 rounded-lg text-left font-medium shadow-lg'>
+      <div className='flex flex-col text-white bg-gray-900 rounded-lg text-left justify-center font-medium shadow-lg'>
         <img src={logo} alt='Spotify Logo' className="w-20 h-20 mx-auto mt-10 mb-28"/>
     
         <span className='mb-14'>
@@ -44,7 +44,7 @@ function Navbar() {
           </Link>
         </span>
 
-        <span className='m-5 p-4 text-center text-gray-900 bg-green-500 rounded-lg font-medium'>
+        <span className='m-5 p-4 text-center font-bold text-white bg-green-400 rounded-lg'>
           <Link>
             <span className=''>Create a playlist</span>
           </Link>

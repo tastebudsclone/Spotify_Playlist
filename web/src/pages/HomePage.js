@@ -8,9 +8,9 @@ function Home() {
   console.log(match)
 
   return (
-    <>
-    <Navbar />
-    </>
+    <div className='h-screen w-full p-4 bg-gray-800'>
+      <Navbar />
+    </div>
   )
 }
 
