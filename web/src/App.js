@@ -15,7 +15,7 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/home?' element={<PrivateRoute><HomePage /></PrivateRoute>} />
-        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/users/:userId' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
         <Route path='/discover' element={<DiscoverPage />} />
         <Route path='/playlist/:id' element={<PlaylistPage />} />
         <Route path='*' element={<Navigate to='/' />} /> {/*OR COMPONENT PAGE NOT FOUND*/}
