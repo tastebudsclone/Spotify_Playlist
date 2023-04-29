@@ -7,7 +7,10 @@ const login = (user) => http.post('/login', user)
   .then((res) => res.data);
 
 const get = (id) => http.get(`/users/${id}`)
-  .then((res) => res.data);
+  .then((res) =>{
+    console.log(res)
+     return res.data
+    });
 
 export default {
   create,

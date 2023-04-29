@@ -9,7 +9,7 @@ const usersMid = require('../middlewares/users.mid');
 
 router.post('/login', users.login);
 router.post('/register', users.create);
-router.get('/users/:id', users.profile);
+router.get('/users/:id', secure.auth ,usersMid.exist, users.profile);
 router.patch('/users/:id', secure.auth, users.settings);
 
 router.get('/playlists', playlists.list);

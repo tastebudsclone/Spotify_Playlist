@@ -5,7 +5,7 @@ const {getRecommendations, example} = require('../config/spotify.config');
 
 module.exports.list = (req, res, next) => {
   Playlist.find()
-    .then((playlists) => res.json(playlists))
+    .then((playlists) => res.json({data: playlists}))
     .catch(next);
 }
 

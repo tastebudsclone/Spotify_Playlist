@@ -3,20 +3,23 @@ const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 
 module.exports.profile = (req, res, next) => {
-  User.findById(req.params.id)
+  console.log(req.params.id)
+  User.findById(req.user.id)
     .populate('playlists')
     .then((user) => {
       if (!user) {
         return next(createError(404, 'User not found'))
       }
-      res.json(user)
+      res.json({data: user})
     })
     .catch(next)
 };
 
 module.exports.create = (req, res, next) => {
   User.create(req.body)
-    .then((user) => res.status(201).json(user))
+    .then((user) => {
+      console.log(user)
+      return res.status(201).json(user)})
     .catch(next)
 }
 
@@ -39,7 +42,6 @@ module.exports.login = (req, res, next) => {
   }
   User.findOne({ username: req.body.username })
     .then((user) => {
-      console.log(user)
       if (!user) {
         return next(createError(401, {errors: { password: 'Invalid credentials'}}));
       }
@@ -53,8 +55,7 @@ module.exports.login = (req, res, next) => {
         { sub: user.id, exp: Date.now() / 1000 + 3_600 },
         process.env.JWT_SECRET
       );
-        console.log(req.user)
-        res.json({ token, ...user.toJSON() })
+        res.status(200).json({data: {token, ...user.toJSON()}})
       });  
     })
     .catch(next);

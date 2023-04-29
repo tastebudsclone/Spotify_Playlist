@@ -3,15 +3,24 @@ const createError = require('http-errors');
 
 module.exports.exist = (req, res, next) => {
   const userId = req.params.userId || req.params.id;
-
-  User.findById(userId)
-    .then((user) => {
-      if(student) {
-        req.user = user;
-        next();
-      } else {
-        next(createError(404, 'User not found'));
-      }
-    })
-    .catch(next);
+  if (userId === 'me') {
+    console.log(req.user)
+    if (req.user) {
+      req.user = req.user;
+      next();
+    } else {
+      next(createError(401, 'Missing access token'));
+    }
+  } else {
+    User.findById(userId)
+      .then((user) => {
+        if(user) {
+          req.user = user;
+          next();
+        } else {
+          next(createError(404, 'User not found'));
+        }
+      })
+      .catch(next);
+  }
 }

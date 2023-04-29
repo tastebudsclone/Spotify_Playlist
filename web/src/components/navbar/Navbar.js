@@ -5,13 +5,13 @@ import logo from '../../assets/img/spotifyicon.png'
 
 function Navbar() {
   return (
-    <div className='h-screen w-full p-4 bg-gray-800'>
+    <div className='w-full p-4 bg-gray-800'>
       <div className='flex flex-col text-white bg-gray-900 rounded-lg text-left justify-center font-medium shadow-lg'>
         <img src={logo} alt='Spotify Logo' className="w-20 h-20 mx-auto mt-10 mb-28"/>
     
         <span className='mb-14'>
           <i className='ps-10 w-8 p-5 rounded-full'></i> 
-          <Link to='/profile'>
+          <Link to='/users/me'>
             <span className='mx-2'>Profile</span>     
           </Link>
         </span>
