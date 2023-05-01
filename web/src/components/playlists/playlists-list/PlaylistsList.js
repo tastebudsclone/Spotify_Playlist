@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import playlistService from '../../../services/playlists';
+import PlaylistItem from '../playlist-item/PlaylistItem';
 
 function PlaylistsList() {
   const [playlists, setPlaylists] = useState([]);
@@ -18,7 +19,7 @@ function PlaylistsList() {
   
   return (
     <>
-      {playlists.map((playlist) => (<div key={playlist.id}>{playlist.id}</div>))}
+      {playlists.map((playlist) => <PlaylistItem key={playlist.id} playlist={playlist} />)}
     </>
   )
 }
