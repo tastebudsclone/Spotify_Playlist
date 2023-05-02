@@ -11,4 +11,4 @@ function PlaylistItem({playlist}) {
   )
 }
 
-export default PlaylistItem
+export default PlaylistItem;
