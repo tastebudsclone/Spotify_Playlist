@@ -16,8 +16,8 @@ const playlistSchema = new Schema(
       ref: 'User',
       required: 'Must log in before creating playlist.'
     },
-    image: {
-      type: String
+    images: {
+      type: [String]
     }
   }, 
   {

@@ -1,13 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 function PlaylistItem({playlist}) {
+  const { playlistId } = useParams()
+
   return (
-    <>
-      <div>{playlist.name}</div>
-      {playlist.tracks.map((track) => (
-        <div key={track}>{track}</div>
-      ))}
-    </>
+    <div>
+      <Link to={`/playlists/${playlist.id}`}>{playlist.name}</Link>
+      
+    </div>
   )
 }
 

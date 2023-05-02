@@ -103,10 +103,16 @@ async function getSeveralTracks(data) {
   const token = res.data.access_token;
 
   res = await axios.get("https://api.spotify.com/v1/tracks?market=ES", {
-    ids : data.join(',')
-  })
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params:{
+      ids: data.join(',')
+    } 
+  });
   
-  console.log('data', res);
+  console.log('data', res.data);
+  return res.data
 }
 
 // create a function to get random songs getRandomTracks

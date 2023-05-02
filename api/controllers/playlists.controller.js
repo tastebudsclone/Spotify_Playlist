@@ -1,12 +1,26 @@
 const Playlist = require('../models/playlist.model');
 const Like = require('../models/like.model');
 const createError = require('http-errors');
-const {getRecommendations, example} = require('../config/spotify.config');
+const {getRecommendations, getSeveralTracks} = require('../config/spotify.config');
 
-module.exports.list = (req, res, next) => {
-  Playlist.find()
-    .then((playlists) => res.json({data: playlists}))
-    .catch(next);
+module.exports.list = async (req, res, next) => {
+  try {
+    const playlists = await Playlist.find()
+    res.json({data: playlists})
+  } catch(error) {
+    next(error)
+  }
+}
+
+module.exports.detail = async (req, res, next) => {
+  try {
+    const playlist = await Playlist.findById(req.params.id)
+    const trackInfo = await getSeveralTracks(playlist.tracks)
+    const tracks = trackInfo.tracks
+    res.json({data: playlist, tracks})
+  } catch(error) {
+    next(error)
+  }
 }
 
 //TO DO ARTIST ATTRIBUTE AND POPULATE IN USER
@@ -15,8 +29,9 @@ module.exports.create = async (req, res, next) => {
     const tracks = await getRecommendations(req.body);
     const tracksID = tracks.map(track => track.id);
     const artistsIds = tracks.map(x => x.artists[0].id)
+    const playlistImgs = tracks.map(track => track.album.images[1].url)
     
-    const playlist = await Playlist.create({name: req.body.name, tracks: tracksID, owner: req.user.id});
+    const playlist = await Playlist.create({name: req.body.name, images: playlistImgs, tracks: tracksID, owner: req.user.id});
 
     req.user.artists = [...req.user.artists, ...artistsIds]
     await req.user.save();

@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import arrow from '../../assets/img/backarrow.png';
 
 
-function BackButton() {
+function BackButton({path}) {
   return (
-    <>
-      <Link to='/home'>
+    <div className='flex'>
+      <Link to={path}>
         <img
-          className="justify-start h-5"
+          className="justify-start p-4 w-10"
           src={arrow}
           alt="backarrow"
-          />
+        />
       </Link>
-    </>
+    </div>
   )
 }
 

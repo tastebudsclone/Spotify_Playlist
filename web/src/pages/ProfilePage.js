@@ -4,15 +4,14 @@ import BackButton from '../components/ui/BackButton';
 
 function Profile() {
   return (
-    <div className='w-full h-full p-4 bg-gray-800 m:mx-auto sm:w-full sm:max-w-sm'>
-      <BackButton />
-      <div className="flex min-h-full flex-1 flex-col">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <UserDetail />
+      <div className='w-full h-full p-4 bg-gray-800 m:mx-auto sm:w-full sm:max-w-sm'>
+        <BackButton path='/home'/>
+        <div className="flex min-h-full flex-1 flex-col">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <UserDetail />
+          </div>
         </div>
       </div>
-    </div>
-
   )
 }
 

@@ -18,7 +18,7 @@ function App() {
         <Route path='/home?' element={<PrivateRoute><HomePage /></PrivateRoute>} />
         <Route path='/users/:userId' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
         <Route path='/discover' element={<DiscoverPage />} />
-        <Route path='/playlist/:id' element={<PlaylistPage />} />
+        <Route path='/playlists/:id' element={<PlaylistPage />} />
         <Route path='/playlist/create' element={<PlaylistForm />} />
         <Route path='*' element={<Navigate to='/' />} /> {/*OR COMPONENT PAGE NOT FOUND*/}
       </Routes>

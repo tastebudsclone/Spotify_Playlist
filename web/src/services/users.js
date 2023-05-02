@@ -7,7 +7,7 @@ const login = (user) => http.post('/login', user)
   .then((res) => res.data);
 
 const get = (id) => http.get(`/users/${id}`)
-  .then((res) =>{
+  .then((res) => { 
     console.log(res)
      return res.data
     });
