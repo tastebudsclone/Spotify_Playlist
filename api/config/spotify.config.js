@@ -37,6 +37,7 @@ async function example() {
 
 async function getRecommendations(data) {
   // get spotify recommendations based on genres and artist name
+  console.log(data)
   let res;
   res = await axios.post(
     "https://accounts.spotify.com/api/token",
@@ -59,7 +60,7 @@ async function getRecommendations(data) {
       Authorization: `Bearer ${token}`,
     },
     params: {
-      q: data.artistName,
+      q: data.artistsName,
       type: "artist",
     },
   });
@@ -67,9 +68,11 @@ async function getRecommendations(data) {
   const artistId = res.data.artists.items[0].id;
   
   const paramsKey = {
-    seed_genres: data.genre,
     seed_artists: artistId,
     limit: data.limit || 5,
+    target_valence: data.valence,
+    target_instrumentalness: data.instrumentalness,
+    target_tempo: data.tempo,
   };
 
   res = await axios.get("https://api.spotify.com/v1/recommendations", {

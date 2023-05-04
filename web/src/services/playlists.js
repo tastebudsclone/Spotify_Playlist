@@ -6,11 +6,15 @@ const list = () => http.get('/playlists')
 const detail = (id) => http.get(`/playlists/${id}`)
   .then((res) => res)
 
-const create = () => http.post('/playlists')
-  .then((res) => res.data)
+const create = (playlist) => http.post('/playlists', playlist)
+  .then((res) => res.id)
+
+const deletePlaylist = (id) => http.delete(`/playlists/${id}`)
+  .then((res) => res)
 
 export default {
   list,
   detail,
-  create
+  create,
+  deletePlaylist
 };

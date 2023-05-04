@@ -5,8 +5,9 @@ const Schema = mongoose.Schema;
 
 const playlistSchema = new Schema(
   {
-    name: {
-      type: String
+    title: {
+      type: String,
+      required: 'Playlist name is required.'
     },
     tracks: {
       type: [String]

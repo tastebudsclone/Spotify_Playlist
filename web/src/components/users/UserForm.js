@@ -24,7 +24,7 @@ function UserForm() {
     }
   }
   return (
-    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm" >
       <form onSubmit={handleSubmit(onUserSubmit)} className="space-y-6">
         {serverError && <div className="p-3 text-red-600 bg-red-200 animate-pulse rounded-lg border-red-900"> {serverError} </div>}
         <div className="block text-sm font-medium leading-6 text-gray-200">

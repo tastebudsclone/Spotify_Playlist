@@ -14,7 +14,7 @@ module.exports.list = async (req, res, next) => {
 
 module.exports.detail = async (req, res, next) => {
   try {
-    const playlist = await Playlist.findById(req.params.id)
+    const playlist = await Playlist.findById(req.params.id).populate('owner')
     const trackInfo = await getSeveralTracks(playlist.tracks)
     const tracks = trackInfo.tracks
     res.json({data: playlist, tracks})
@@ -31,7 +31,7 @@ module.exports.create = async (req, res, next) => {
     const artistsIds = tracks.map(x => x.artists[0].id)
     const playlistImgs = tracks.map(track => track.album.images[1].url)
     
-    const playlist = await Playlist.create({name: req.body.name, images: playlistImgs, tracks: tracksID, owner: req.user.id});
+    const playlist = await Playlist.create({title: req.body.title, images: playlistImgs, tracks: tracksID, owner: req.user.id});
 
     req.user.artists = [...req.user.artists, ...artistsIds]
     await req.user.save();

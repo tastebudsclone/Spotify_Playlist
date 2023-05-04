@@ -4,7 +4,7 @@ import logo from '../assets/img/spotifytransicon.png';
 
 function RegisterPage() {
   return (
-    <div className='h-full w-full p-4 bg-gray-800 font-mono'>
+    <div className='h-full overflow-y-hidden w-full p-4 bg-gray-800 font-mono'>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
