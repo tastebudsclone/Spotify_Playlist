@@ -1,31 +1,68 @@
-import React from 'react';
-import BackButton from '../../ui/BackButton';
+import React, { useState, useEffect } from 'react';
+import PlaylistFormControl from './PlaylistFormControl';
+import { useNavigate } from 'react-router-dom';
+import playlistsService from '../../../services/playlists';
+import { useForm } from 'react-hook-form';
+
+import Mood from './steps/Mood';
+import Tempo from './steps/Tempo';
+import Length from './steps/Length';
+import Instrumental from './steps/Instrumental';
+import Artists from './steps/Artists';
+
 
 function PlaylistForm() {
-  return (
-    <div className='bg-green-400 w-full h-full p-4'>
-      <BackButton />
-      <div class="flex flex-col justify-center items-center h-full">
-        <div className='w-full'>
-          <div className='m-5 p-8 flex flex-col text-white bg-gray-900 rounded-lg text-center font-medium shadow-lg'>
-              <div className='p-4'>
-                <p>FORM 1</p>
-              </div>
-          </div>
-        </div>
 
-        <div className='w-full'>
-          <div className='m-5 p-8 flex flex-col text-white bg-gray-900 rounded-lg text-center font-medium shadow-lg'>
-              <div className='p-4'>
-                <p>FORM 2</p>
-              </div>
-          </div>
-        </div>
-      </div>
+  const navigate = useNavigate();
+  const { register, handleSubmit, setError, formState: { errors } } = useForm({ mode: 'onBlur' });
+
+  const [serverError, setServerError] = useState(undefined);
+
+  const onPlaylistSubmit = async (playlist) => {
+    try {
+      setServerError();
+      playlist = await playlistsService.create(playlist);
+      navigate({
+        pathname: "/playlist/list",
+      });
+    } catch (error) {
+      const errors = error.response?.data?.errors;
+      if (errors) {
+        Object.keys(errors)
+          .forEach((inputName) => setError(inputName, { message: errors[inputName] }))
+      } else {
+        setServerError(error.message)
+      }
+    }
+  }
+  
+  const [currentStep, setCurrentStep] = useState(1);
+
+  useEffect(() => {
+
+  }, [currentStep]);
+
+  const handleNext = () => {
+    setCurrentStep(currentStep + 1);
+  }
+
+  const handlePrevious = () => {
+    setCurrentStep(currentStep - 1);
+  }
+
+
+
+  return (
+    <div className='w-full flex mt-10 justify-between items-center bg-gray-200 rounded-xl border-2 border-slate-300'>
+      <form onSubmit={handleSubmit(onPlaylistSubmit)}>
+
+      </form>
+      
+      <PlaylistFormControl />
     </div>
   )
 }
 
-export default PlaylistForm
+export default PlaylistForm;
 
 

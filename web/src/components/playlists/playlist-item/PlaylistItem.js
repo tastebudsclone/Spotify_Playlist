@@ -5,9 +5,10 @@ function PlaylistItem({playlist}) {
   const { playlistId } = useParams()
 
   return (
-    <div>
-      <Link to={`/playlists/${playlist.id}`}>{playlist.name}</Link>
-      
+    <div className='rounded-xl bg-gradient-to-r from-green-400 to-emerald-800 m-3 p-3 text-black'>
+      <Link to={`/playlists/${playlist.id}`}>{playlist.name}
+    {/*add owner if we are in Discover page */}
+      </Link>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import logo from '../assets/img/spotifyicon.png';
 
 function LoginPage() {
   return (
-    <div className='h-full w-full p-4 bg-gray-800 m:mx-auto sm:w-full sm:max-w-sm'>
+    <div className='h-full w-full p-4 bg-gray-800 m:mx-auto sm:w-full sm:max-w-sm font-mono'>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img

@@ -7,7 +7,8 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AuthStore from './contexts/AuthStore';
 import PrivateRoute from './guards/PrivateRoute';
-import PlaylistForm from './components/playlists/playlist-form/PlaylistForm';
+import CreatePage from './pages/CreatePage';
+import FormPage from './pages/FormPage';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Route path='/users/:userId' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
         <Route path='/discover' element={<DiscoverPage />} />
         <Route path='/playlists/:id' element={<PlaylistPage />} />
-        <Route path='/playlist/create' element={<PlaylistForm />} />
+        <Route path='/playlist/create' element={<CreatePage />} />
+        <Route path='/playlist/' element={<FormPage />} /> {/* WRONG PATH HEHE*/}
         <Route path='*' element={<Navigate to='/' />} /> {/*OR COMPONENT PAGE NOT FOUND*/}
       </Routes>
     </AuthStore>

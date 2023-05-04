@@ -6,7 +6,11 @@ const list = () => http.get('/playlists')
 const detail = (id) => http.get(`/playlists/${id}`)
   .then((res) => res)
 
+const create = () => http.post('/playlists')
+  .then((res) => res.data)
+
 export default {
   list,
-  detail
+  detail,
+  create
 };

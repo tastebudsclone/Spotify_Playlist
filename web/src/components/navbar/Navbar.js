@@ -44,11 +44,11 @@ function Navbar() {
           </Link>
         </span>
 
-        <span className='m-5 p-4 text-center font-bold text-white bg-green-400 rounded-lg'>
+        <button className='m-5 p-4 text-center font-bold text-black bg-green-400 rounded-lg'>
           <Link to='/playlist/create'>
             <span className=''>Create a playlist</span>
           </Link>
-        </span>
+        </button>
 
       </div>
     </div>
