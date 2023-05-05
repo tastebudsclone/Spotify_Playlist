@@ -1,52 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from '../../assets/img/spotifyicon.png'
+import logo from '../../assets/img/musicapp.png'
+import profile from '../../assets/img/profile.png'
+import explore from '../../assets/img/explore.png'
+import ranking from '../../assets/img/music-app.png'
+import song from '../../assets/img/love-song.png'
 
 function Navbar() {
   return (
     <div className='w-full p-4 bg-gray-800'>
-      <div className='flex flex-col text-white bg-gray-900 rounded-lg text-left justify-center font-medium shadow-lg'>
-        <img src={logo} alt='Spotify Logo' className="w-20 h-20 mx-auto mt-10 mb-28"/>
+      <div className='flex flex-col text-white bg-gray-400 rounded-lg text-left justify-center font-medium shadow-lg'>
+        <img src={logo} alt='Spotify Logo' className="w-20 h-20 mx-auto mt-20"/>
     
-        <span className='mb-14'>
-          <i className='ps-10 w-8 p-5 rounded-full'></i> 
+        <span className='mb-7 p-5 flex flex-row items-center text-2xl'>
+          <img className='rounded h-12 w-12' src={profile} />
           <Link to='/users/me'>
-            <span className='mx-2'>Profile</span>     
+            <p className='mx-10'>Profile</p>     
           </Link>
         </span>
  
-        <span className='mb-14'>
-          <i className='ps-10 w-8 p-5 rounded-full'></i>
+        <span className='mb-7 p-5 flex flex-row items-center text-2xl'>
+          <img className='rounded h-12 w-12' src={explore} />
           <Link to='/discover'>
-            <span className='mx-2'>Discover</span>
+            <p className='mx-10'>Discover</p>     
           </Link>
         </span>
 
-        <span className='mb-14'>
-          <i className='ps-10 w-8 p-5 rounded-full'></i>
-          <Link>
-            <span className='mx-2'>Daily song</span>
+        <span className='mb-7 p-5 flex flex-row items-center text-2xl'>
+          <img className='rounded h-12 w-12' src={song} />
+          <Link to='/'>
+            <p className='mx-10'>Daily song</p>     
           </Link>
         </span>
 
-        <span className='mb-14'>
-          <i className='ps-10 w-8 p-5 rounded-full'></i>
-          <Link>
-            <span className='mx-2'>Challenge</span>
+    
+        <span className='mb-7 p-5 flex flex-row items-center text-2xl'>
+          <img className='rounded h-12 w-12' src={ranking} />
+          <Link to='/'>
+            <p className='mx-10'>Leaderboard</p>     
           </Link>
         </span>
 
-        <span className='mb-28'>
-          <i className='ps-10 w-8 p-5 rounded-full'></i>
-          <Link>
-            <span className='mx-2'>Leaderboard</span>
-          </Link>
-        </span>
 
-        <button className='m-5 p-4 text-center font-bold text-black bg-green-400 rounded-lg'>
+        <button className='m-5 p-4 mb-10 text-center font-bold text-white bg-gray-800 rounded-xl text-2xl transform motion-safe:hover:scale-110'>
           <Link to='/playlist/create'>
-            <span className=''>Create a playlist</span>
+            <span className='transform motion-safe:hover:scale-110'>Create a playlist</span>
           </Link>
         </button>
 

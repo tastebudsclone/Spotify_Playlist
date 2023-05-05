@@ -1,6 +1,6 @@
 import React from 'react';
 import UserLogIn from '../components/users/UserLogIn';
-import logo from '../assets/img/spotifyicon.png';
+import logo from '../assets/img/musicapp.png';
 
 function LoginPage() {
   return (
@@ -13,7 +13,7 @@ function LoginPage() {
             alt="Spotify logo"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-            Sign in to your account
+            Sign in to Playlist Maker!
           </h2>
         </div>
       <UserLogIn />

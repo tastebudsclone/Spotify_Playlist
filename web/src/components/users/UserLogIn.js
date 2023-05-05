@@ -12,7 +12,6 @@ const { register, handleSubmit, setError, formState: { errors } } = useForm({ mo
 const [serverError, setSeverError] = useState(undefined);
 const { onUserChange } = useContext(AuthContext);
 
-{/*MISSING SERVER ERRORS */}
 
 const onLoginSubmit = async (user) => {
   try {
@@ -46,7 +45,7 @@ const onLoginSubmit = async (user) => {
               type="username"
               autoComplete="username"
               required
-              className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-200 bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-200 bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
               {...register('username', {
                 required: 'Usename is required'
               })} 
@@ -68,7 +67,7 @@ const onLoginSubmit = async (user) => {
               type="password"
               autoComplete="current-password"
               required
-              className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-200 bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-200 bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
               {...register('password', {
                 required: 'User password is required'
               })} 
