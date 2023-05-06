@@ -69,10 +69,10 @@ async function getRecommendations(data) {
   
   const paramsKey = {
     seed_artists: artistId,
-    limit: data.limit || 5,
-    target_valence: data.valence,
-    target_instrumentalness: data.instrumentalness,
-    target_tempo: data.tempo,
+    limit: data.limit,
+    target_valence: (data.valence / 10) || undefined,
+    target_instrumentalness: (data.instrumentalness / 10) || undefined,
+    target_tempo: data.tempo || undefined,
   };
 
   res = await axios.get("https://api.spotify.com/v1/recommendations", {

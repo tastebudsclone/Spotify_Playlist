@@ -9,8 +9,9 @@ import stars from '../../../assets/img/stars.png';
 function ArtistsForm() {
 
   const navigate = useNavigate();
-  const { register, handleSubmit, setError, formState: { errors } } = useForm({ mode: 'onBlur' });
+  const { register, handleSubmit, watch, setError, formState: { errors } } = useForm({ mode: 'onBlur' });
   const [serverError, setServerError] = useState(undefined);
+  const input4Value = watch('limit');
 
   const onPlaylistSubmit = async (playlist) => {
     try {
@@ -56,13 +57,16 @@ function ArtistsForm() {
         {errors.artistsName && <p className='text-red-500 my-1 text-sm text-center p-3'>{errors.artistsName.message}</p>}
         {errors.artistsName && <div></div>}
         <label className='text-center p-3 font-bold text-xl text-gray-800'>{PLAYLIST_QUESTION.Q[4]}</label>
-        <input className='mt-4 mb-4 rounded-xl'
-          type='text'
-          {...register('limit', {
-            required: 'Please answer before continuing.',
-          })}
-          aria-invalid={errors.limit ? 'true' : 'false'}
-        />
+        <input className="mt-2 w-full h-2 bg-gradient-to-r from-indigo-200 via-indigo-400 to-indigo-600 rounded-lg appearance-none cursor-pointer"
+        type="range"
+        min="4"
+        max="20"
+        {...register('limit', {
+          required: 'Please answer before continuing.',
+        })}
+        aria-invalid={errors.limit ? 'true' : 'false'}
+      />
+      <small className='text-center mt-1'>{input4Value}</small>
         {errors.limit && <p className='text-red-500 my-1 text-sm text-center p-3'>{errors.limit.message}</p>}
         {errors.limit && <div></div>}
         <button className='p-2 mt-5 rounded-xl border-2 border-indigo-700 bg-indigo-400 font-bold text-xl text-gray-800'>Create</button>

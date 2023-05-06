@@ -8,12 +8,21 @@ const login = (user) => http.post('/login', user)
 
 const get = (id) => http.get(`/users/${id}`)
   .then((res) => { 
-    console.log(res)
      return res.data
     });
+
+const like = (id) => http.post(`/playlists/${id}/like`)
+    .then((res) => {
+      return res.data
+    });
+
+const dislike = (id) => http.delete(`/playlists/${id}/like`)
+    .then((res) => res.data)
 
 export default {
   create,
   login,
-  get
+  get,
+  like,
+  dislike
 }

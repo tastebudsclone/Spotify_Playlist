@@ -15,4 +15,4 @@ function CreateOnMood() {
   )
 }
 
-export default CreateOnMood
+export default CreateOnMood;

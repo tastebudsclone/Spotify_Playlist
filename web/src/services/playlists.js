@@ -4,7 +4,10 @@ const list = () => http.get('/playlists')
   .then((res) => res.data)
 
 const detail = (id) => http.get(`/playlists/${id}`)
-  .then((res) => res)
+  .then((res) => {
+    console.log(res)
+    return res
+  })
 
 const create = (playlist) => http.post('/playlists', playlist)
   .then((res) => res.id)

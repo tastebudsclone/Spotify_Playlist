@@ -8,16 +8,31 @@ import profile from '../../assets/img/user-profile.png'
 import guitar from '../../assets/img/electric-guitar.png'
 import winner from '../../assets/img/winner.png'
 import like from '../../assets/img/favorite.png'
+import PlaylistItem from '../playlists/playlist-item/PlaylistItem';
+import playlistsService from '../../services/playlists';
 
 function UserDetail() {
   const [user, setUser] = useState();
   const { userId } = useParams();
+  const [likedPlaylist, setLikedPLaylist] = useState([])
+
+  function filterPlaylistsByLikedUser(playlists, userId) {
+    const filteredPlaylists = playlists.filter((playlist) =>
+      playlist.likes.some((like) => like.user === userId)
+    );
+    return filteredPlaylists;
+  }
+  
 
   useEffect(() => {
     async function fetchUser() {
       try {
         const user = await usersService.get(userId);
+        console.log(user)
         setUser(user);
+        const playlists = await playlistsService.list()
+        /*create a function that search playlists and return playlist where likes user is user */
+        setLikedPLaylist(filterPlaylistsByLikedUser(playlists, user.id))
       } catch (error) {
         console.error(error)
       }
@@ -50,7 +65,7 @@ function UserDetail() {
       
       <div className='mt-8 m-5 flex flex-col text-white bg-gray-400 rounded-lg text-left text-lg font-bold shadow-lg'>
         <div className='flex flex-row items-center p-4'>
-          <img src={guitar} className='w-14 h-14' />
+          <img src={guitar} className='w-14 h-14' alt=''/>
             <div className='px-10'>
               <p>My playlists</p>
             </div>
@@ -60,16 +75,17 @@ function UserDetail() {
 
       <div className='mt-8 m-5 flex flex-col text-white bg-gray-400 rounded-lg text-left text-lg font-bold shadow-lg'>
         <div className='flex flex-row items-center p-4'>
-          <img src={like} className='w-14 h-14' />
+          <img src={like} className='w-14 h-14' alt=''/>
             <div className='px-10'>
               <p>My likes</p>
             </div>
         </div>
+        {!user ? <></> : likedPlaylist.map(playlist => (<PlaylistItem key={playlist.id} playlist={playlist}/>))}
       </div>
 
       <div className='mt-8 m-5 flex flex-col text-white bg-gray-400 rounded-lg text-left text-lg font-bold shadow-lg'>
         <div className='flex flex-row items-center p-4'>
-          <img src={winner} className='w-14 h-14' />
+          <img src={winner} className='w-14 h-14' alt=''/>
             <div className='px-10'>
               <p>My score</p>
             </div>

@@ -9,8 +9,9 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: "Student email is required",
-      match: [/^\S+@\S+\.\S+$/, "Student email must be valid"],
+      required: "User email is required",
+      match: [/^\S+@\S+\.\S+$/, "User email must be valid"],
+      unique: true
     },
     username: {
       type: String,

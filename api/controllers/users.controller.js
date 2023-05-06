@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 module.exports.profile = (req, res, next) => {
   console.log(req.params.id)
   User.findById(req.user.id)
+    .populate('likes')
     .populate('playlists')
     .then((user) => {
       if (!user) {

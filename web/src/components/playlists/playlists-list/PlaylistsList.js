@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 function PlaylistsList() {
   const [playlists, setPlaylists] = useState([]);
   const  { userId }  = useParams()
-  console.log('path', userId)
   
   useEffect(() => {
     async function fetchPlaylists() {
