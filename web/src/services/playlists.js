@@ -5,7 +5,6 @@ const list = () => http.get('/playlists')
 
 const detail = (id) => http.get(`/playlists/${id}`)
   .then((res) => {
-    console.log(res)
     return res
   })
 

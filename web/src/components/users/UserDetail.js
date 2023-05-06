@@ -28,7 +28,6 @@ function UserDetail() {
     async function fetchUser() {
       try {
         const user = await usersService.get(userId);
-        console.log(user)
         setUser(user);
         const playlists = await playlistsService.list()
         /*create a function that search playlists and return playlist where likes user is user */

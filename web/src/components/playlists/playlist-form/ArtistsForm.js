@@ -39,6 +39,7 @@ function ArtistsForm() {
         <img src={stars} className='w-5 h-5 mx-2'/>
       </div>
         <input type='text' className='mt-2 mb-4 rounded-xl'
+        placeholder='Example: "Playlist 1"'
           {...register('title', {
             required: 'Please answer before continuing.',
           })}
@@ -49,6 +50,7 @@ function ArtistsForm() {
       <label className='text-justify font-bold text-xl text-gray-800'>{PLAYLIST_QUESTION.Q[2]}</label>
         <input className='mt-4 mb-4 rounded-xl'
           type='text'
+          placeholder='Example: Shakira, Beyonce, etc.'
           {...register('artistsName', {
             required: 'Please answer before continuing.',
           })}

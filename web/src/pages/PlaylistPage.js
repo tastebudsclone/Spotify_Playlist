@@ -33,7 +33,6 @@ function Playlist() {
           setIsOwner(false)
         }
         const isLiked = data.data.likes?.filter(like => like.user === user.id);
-        console.log(isLiked)
         if (isLiked[0]) {
           setLike(true)
         } else {
