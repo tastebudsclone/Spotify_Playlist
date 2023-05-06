@@ -5,7 +5,7 @@ const {getRecommendations, getSeveralTracks} = require('../config/spotify.config
 
 module.exports.list = async (req, res, next) => {
   try {
-    const playlists = await Playlist.find().populate('likes')
+    const playlists = await Playlist.find().populate('likes').populate('owner')
     res.json({data: playlists})
   } catch(error) {
     next(error)

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 function PlaylistsList() {
   const [playlists, setPlaylists] = useState([]);
   const  { userId }  = useParams()
+  const [user, setUser] = useState()
   
   useEffect(() => {
     async function fetchPlaylists() {
@@ -17,6 +18,7 @@ function PlaylistsList() {
         } else {
           const user = await usersService.get(userId);
           setPlaylists(user.playlists)
+          setUser(user)
         }
       } catch (error){
         console.error(error)
@@ -27,7 +29,7 @@ function PlaylistsList() {
   
   return (
     <>
-      {playlists.map((playlist) => <PlaylistItem key={playlist.id} playlist={playlist} />)}
+      {playlists.map((playlist) => <PlaylistItem key={playlist.id} user={user} playlist={playlist} />)}
     </>
   )
 }

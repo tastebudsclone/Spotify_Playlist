@@ -46,7 +46,7 @@ function ArtistsForm() {
         />
         {errors.title && <p className='text-red-500 my-1 text-sm text-center p-3'>{errors.title.message}</p>}
         {errors.title && <div></div>}
-      <label className='text-center font-bold text-xl text-gray-800'>{PLAYLIST_QUESTION.Q[2]}</label>
+      <label className='text-justify font-bold text-xl text-gray-800'>{PLAYLIST_QUESTION.Q[2]}</label>
         <input className='mt-4 mb-4 rounded-xl'
           type='text'
           {...register('artistsName', {
@@ -56,7 +56,7 @@ function ArtistsForm() {
         />
         {errors.artistsName && <p className='text-red-500 my-1 text-sm text-center p-3'>{errors.artistsName.message}</p>}
         {errors.artistsName && <div></div>}
-        <label className='text-center p-3 font-bold text-xl text-gray-800'>{PLAYLIST_QUESTION.Q[4]}</label>
+        <label className='text-justify p-3 font-bold text-xl text-gray-800'>{PLAYLIST_QUESTION.Q[4]}</label>
         <input className="mt-2 w-full h-2 bg-gradient-to-r from-indigo-200 via-indigo-400 to-indigo-600 rounded-lg appearance-none cursor-pointer"
         type="range"
         min="4"
