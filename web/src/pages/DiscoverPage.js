@@ -5,16 +5,18 @@ import playlist from '../assets/img/playlist.png'
 
 function Discover() {
   return (
-    <div className='h-auto w-full p-4 bg-gray-800 text-white font-mono'>
-      <div className="p-2 sticky top-0 bg-gray-800">
-        <BackButton path='/'/>
-        <div className='flex justify-around'>
-          <img src={playlist} className='w-20 h-20 ' />
-          <h1 className='m-5 text-3xl font-bold'>Discover</h1>
+    <div className='h-auto flex items-center justify-center bg-gray-800'>
+      <div className='p-4 bg-gray-800 text-white font-mono max-w-md w-full'>
+        <div className="p-2 sticky top-0 bg-gray-800">
+          <BackButton path='/'/>
+          <div className='flex justify-around'>
+            <img src={playlist} className='w-20 h-20 ' alt="Playlist" />
+            <h1 className='m-5 text-3xl font-bold'>Discover</h1>
+          </div>
         </div>
+        <p className='m-5 text-xl text-center'>Here we display all users' playlists. Feel free to explore</p>
+        <PlaylistsList />
       </div>
-      <p className='m-5 text-xl'>Here we display all users' playlists. Feel free to explore</p>
-      <PlaylistsList />
     </div>
   )
 }

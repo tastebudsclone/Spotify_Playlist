@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+    client:
+        image: spotify-app
+        build: 
+          context: ./web
+          dockerfile: Dockerfile
+        restart: always
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./client:/client
+            - /client/node_modules
+        links:
+            - api
+        networks:
+            - webappnetwork
+    api:
+        image: webapp-api
+        build: 
+          context: ./api
+          dockerfile: Dockerfile
+        environment:
+          MONGODB_URI: "mongodb+srv://annasoto:EUVlWe882QX1cBCK@cluster0.maq69ai.mongodb.net/"
+          CLIENT_ID: "89f871ea0be84c66bbe6414bcbd6e5a7"
+          CLIENT_SECRET: "f5dc065f3bd44f4c9dae1324c95ea980"
+          JWT_SECRET: "supersecret"
+        restart: always
+        ports:
+            - "3001:3001"
+        volumes:
+            - ./api:/api
+            - /api/node_modules
+        networks:
+            - webappnetwork
+
+networks:
+    webappnetwork:
+        driver: bridge
