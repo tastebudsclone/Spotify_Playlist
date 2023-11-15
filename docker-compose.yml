@@ -24,8 +24,8 @@ services:
         environment:
           PORT: "3001"
           MONGODB_URI: "mongodb+srv://annasoto:EUVlWe882QX1cBCK@cluster0.maq69ai.mongodb.net/"
-          CLIENT_ID: "89f871ea0be84c66bbe6414bcbd6e5a7"
-          CLIENT_SECRET: "f5dc065f3bd44f4c9dae1324c95ea980"
+          CLIENT_ID: "somethinggoeshere"
+          CLIENT_SECRET: "somethinggoeshere"
           JWT_SECRET: "supersecret"
           CORS_ORIGIN: "http://client:3000"
         restart: always
