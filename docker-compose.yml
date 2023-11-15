@@ -26,6 +26,7 @@ services:
           CLIENT_ID: "89f871ea0be84c66bbe6414bcbd6e5a7"
           CLIENT_SECRET: "f5dc065f3bd44f4c9dae1324c95ea980"
           JWT_SECRET: "supersecret"
+          CORS_ORIGIN: "http://client:3000"
         restart: always
         ports:
             - "3001:3001"
