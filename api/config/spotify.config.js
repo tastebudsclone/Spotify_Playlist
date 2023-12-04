@@ -54,38 +54,42 @@ async function getRecommendations(data) {
 
   const token = res.data.access_token;
   
-  // get artist id from artist name
-  res = await axios.get("https://api.spotify.com/v1/search", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      q: data.artistsName,
-      type: "artist",
-    },
-  });
+ // get artist id from artist name
+ let artists = data.artistsName.split(',').map(x => x.trim());
 
-  const artistId = res.data.artists.items[0].id;
-  
-  const paramsKey = {
-    seed_artists: artistId,
-    limit: data.limit,
-    target_valence: (data.valence / 10) || undefined,
-    target_instrumentalness: (data.instrumentalness / 10) || undefined,
-    target_tempo: data.tempo || undefined,
-  };
+ const artistsIds = await Promise.all(artists.map(async (artist) => {
+   const res = await axios.get("https://api.spotify.com/v1/search", {
+     headers: {
+       Authorization : `Bearer ${token}`,
+     },
+     params: {
+       q: artist,
+       type: 'artist',
+     }
+   });
+   return res.data.artists.items[0].id;
+   }
+ ));
+ 
+ const paramsKey = {
+   seed_artists: artistsIds.join(),
+   limit: data.limit,
+   target_valence: (data.valence / 10) || undefined,
+   target_instrumentalness: (data.instrumentalness / 10) || undefined,
+   target_tempo: data.tempo || undefined,
+ };
 
-  res = await axios.get("https://api.spotify.com/v1/recommendations", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: 
-      paramsKey
-    ,
-  });
+ res = await axios.get("https://api.spotify.com/v1/recommendations", {
+   headers: {
+     Authorization: `Bearer ${token}`,
+   },
+   params: 
+     paramsKey
+   ,
+ });
 
-  console.log("tracks", res.data.tracks);
-  return res.data.tracks
+ console.log("tracks", res.data.tracks);
+ return res.data.tracks
 }
 
 async function getSeveralTracks(data) {

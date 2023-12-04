@@ -24,7 +24,7 @@ function ArtistsForm() {
         Object.keys(errors)
           .forEach((inputName) => setError(inputName, { message: errors[inputName] }))
       } else {
-        setServerError(error.message)
+        setServerError(error.response.data.message)
       }
     }
   }
