@@ -71,18 +71,6 @@ async function getRecommendations(data) {
     }
   ));
   
-  /*res = await axios.get("https://api.spotify.com/v1/search", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      q: data.artistsName,
-      type: "artist",
-    },
-  });
-
-  const artistId = res.data.artists.items[0].id;*/
-  
   const paramsKey = {
     seed_artists: artistsIds.join(),
     limit: data.limit,
@@ -132,28 +120,6 @@ async function getSeveralTracks(data) {
   
   console.log('data', res.data);
   return res.data
-}
-
-async function getRecommendationsV2(data) {
-  // get spotify recommendations based on genres and artist name
-  console.log(data)
-  let res;
-  res = await axios.post(
-    "https://accounts.spotify.com/api/token",
-    { grant_type: "client_credentials" },
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization:
-          "Basic " +
-          new Buffer.from(client_id + ":" + client_secret).toString("base64"),
-      },
-    }
-  );
-
-  const token = res.data.access_token;
-
-
 }
 
 // create a function to get random songs getRandomTracks

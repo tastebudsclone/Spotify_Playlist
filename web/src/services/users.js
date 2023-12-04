@@ -1,7 +1,7 @@
 import http from "./base-api";
 
 const create = (user) => http.post('/register', user)
-  .then((res) => res.data)
+  .then((res) => res.data).catch((error) => console.error(error))
 
 const login = (user) => http.post('/login', user)
   .then((res) => res.data);
