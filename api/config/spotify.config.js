@@ -55,7 +55,23 @@ async function getRecommendations(data) {
   const token = res.data.access_token;
   
   // get artist id from artist name
-  res = await axios.get("https://api.spotify.com/v1/search", {
+  let artists = data.artistsName.split(',').map(x => x.trim());
+
+  const artistsIds = await Promise.all(artists.map(async (artist) => {
+    const res = await axios.get("https://api.spotify.com/v1/search", {
+      headers: {
+        Authorization : `Bearer ${token}`,
+      },
+      params: {
+        q: artist,
+        type: 'artist',
+      }
+    });
+    return res.data.artists.items[0].id;
+    }
+  ));
+  
+  /*res = await axios.get("https://api.spotify.com/v1/search", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -65,10 +81,10 @@ async function getRecommendations(data) {
     },
   });
 
-  const artistId = res.data.artists.items[0].id;
+  const artistId = res.data.artists.items[0].id;*/
   
   const paramsKey = {
-    seed_artists: artistId,
+    seed_artists: artistsIds.join(),
     limit: data.limit,
     target_valence: (data.valence / 10) || undefined,
     target_instrumentalness: (data.instrumentalness / 10) || undefined,
@@ -116,6 +132,28 @@ async function getSeveralTracks(data) {
   
   console.log('data', res.data);
   return res.data
+}
+
+async function getRecommendationsV2(data) {
+  // get spotify recommendations based on genres and artist name
+  console.log(data)
+  let res;
+  res = await axios.post(
+    "https://accounts.spotify.com/api/token",
+    { grant_type: "client_credentials" },
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          new Buffer.from(client_id + ":" + client_secret).toString("base64"),
+      },
+    }
+  );
+
+  const token = res.data.access_token;
+
+
 }
 
 // create a function to get random songs getRandomTracks

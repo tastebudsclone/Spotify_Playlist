@@ -28,17 +28,25 @@ module.exports.detail = async (req, res, next) => {
 //TO DO ARTIST ATTRIBUTE AND POPULATE IN USER
 module.exports.create = async (req, res, next) => {
   try {
-    const tracks = await getRecommendations(req.body);
-    const tracksID = tracks.map(track => track.id);
-    const artistsIds = tracks.map(x => x.artists[0].id)
-    const playlistImgs = tracks.map(track => track.album.images[1].url)
-    
-    const playlist = await Playlist.create({title: req.body.title, images: playlistImgs, tracks: tracksID, owner: req.user.id});
+    if (req.body.title.split(',').join('').trim().length === 0) {
+      next(createError(400, "Please provide the playlist with a title"))
+    } else if (req.body.artistsName.split(',').join('').trim().length === 0) {
+      next(createError(400, "Bad request with artist's names"))
+    } else if (req.body.artistsName.split(',').length > 5) {
+      next(createError(400, "Please no more than 5 artists"))
+    } else {
+      console.log('body', req.body.artistsName.split(',').join('').trim().length)
+      const tracks = await getRecommendations(req.body);
+      const tracksID = tracks.map(track => track.id);
+      const artistsIds = tracks.map(x => x.artists[0].id)
+      const playlistImgs = tracks.map(track => track.album.images[1].url)
+      
+      const playlist = await Playlist.create({title: req.body.title, images: playlistImgs, tracks: tracksID, owner: req.user.id});
 
-    req.user.artists = [...req.user.artists, ...artistsIds]
-    await req.user.save();
+      req.user.artists = [...req.user.artists, ...artistsIds]
+      await req.user.save();
 
-    res.status(201).json(playlist);
+      res.status(201).json(playlist); }
   } catch (error) {
     next(error)
   }

@@ -20,11 +20,12 @@ function ArtistsForm() {
       navigate(`/playlists/${id}`)
     } catch (error) {
       const errors = error.response?.data?.errors;
+      console.log(error)
       if (errors) {
         Object.keys(errors)
           .forEach((inputName) => setError(inputName, { message: errors[inputName] }))
       } else {
-        setServerError(error.message)
+        setServerError(error.response.data.message)
       }
     }
   }
