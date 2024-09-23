@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: process.env.REACT_APP_BASE_API_URL // || 'http://localhost:3001/api/v1'
+  baseURL: process.env.REACT_APP_BASE_API_URL // || 'http://localhost:3001/api/v1' AÑADIR /api/v1 DETRÁS DEL DOMINIO DE LA API
 })
 
 http.interceptors.request.use(
