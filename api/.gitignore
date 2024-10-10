@@ -5,6 +5,12 @@
 ### dotenv ###
 .env
 
+Dockerfile
+
+**/Dockerfile
+
+**/docker-compose.yml
+
 ### Node ###
 # Logs
 logs
@@ -151,7 +157,8 @@ dist
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
